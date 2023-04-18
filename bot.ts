@@ -54,7 +54,7 @@ const bot = new LemmyBot({
         const res = await generateArt(prompt);
 
         if (Array.isArray(res)) {
-          const reply = `Here are the results of your query\n\n${(
+          const reply = `Here are images for the prompt: *${prompt}*\n\n${(
             res as string[]
           )
             .map((r) => `![${prompt}](${r})`)
