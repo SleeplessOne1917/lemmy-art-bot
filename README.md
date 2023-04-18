@@ -18,3 +18,5 @@ When the bot is setup, it can be started by running `npm start`.
 # Usage
 
 To use the bot, mention the bot in a comment and include a prompt. The bot will respond with 4 images made from that prompt.
+
+**Note**: The bot is currently set up to only post in the community !aiart@<your instance>. If you would like it to post in other places, see [the lemmy-bot docs](https://www.npmjs.com/package/lemmy-bot#federation) to find out how to do that.

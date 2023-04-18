@@ -31,15 +31,32 @@ const generateArt = (prompt: string) =>
       input: {
         prompt,
         num_outputs: 4,
+        negative_prompt:
+          'penis, vagina, pornography, horny, rape, nudity, ejaculation, testicles',
       },
     }
   );
+
+const generateReply = (prompt: string, res: string[]) =>
+  `Here are images for the prompt: *${prompt}*\n\n::: spoiler Images\n${(
+    res as string[]
+  )
+    .map((r) => `![](${r})`)
+    .join('\n')}\n:::`;
 
 const bot = new LemmyBot({
   instance: INSTANCE,
   credentials: {
     username: USERNAME_OR_EMAIL,
     password: PASSWORD,
+  },
+  federation: {
+    allowList: [
+      {
+        instance: INSTANCE,
+        communities: ['aiart'],
+      },
+    ],
   },
   dbFile: 'db.sqlite3',
   handlers: {
@@ -54,14 +71,8 @@ const bot = new LemmyBot({
         const res = await generateArt(prompt);
 
         if (Array.isArray(res)) {
-          const reply = `Here are images for the prompt: *${prompt}*\n\n::: spoiler Images\n${(
-            res as string[]
-          )
-            .map((r) => `![](${r})`)
-            .join('\n')}\n:::`;
-
           createComment({
-            content: reply,
+            content: generateReply(prompt, res),
             postId: post_id,
             parentId: id,
           });
@@ -79,6 +90,34 @@ const bot = new LemmyBot({
           content: 'Encountered error while making images',
           postId: post_id,
           parentId: id,
+        });
+      }
+    },
+    async post({
+      postView: {
+        post: { name, id },
+      },
+      botActions: { createComment },
+    }) {
+      const prompt = removeMention(name).trim().replace(/\n/g, '');
+      try {
+        const res = await generateArt(prompt);
+        if (Array.isArray(res)) {
+          createComment({
+            content: generateReply(prompt, res),
+            postId: id,
+          });
+        } else {
+          createComment({
+            content: 'Encountered error while making images',
+            postId: id,
+          });
+        }
+      } catch (e) {
+        console.log(e);
+        createComment({
+          content: 'Encountered error while making images',
+          postId: id,
         });
       }
     },
