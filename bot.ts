@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 import LemmyBot from "lemmy-bot";
 import Replicate from "replicate";
 import { config } from "dotenv";
