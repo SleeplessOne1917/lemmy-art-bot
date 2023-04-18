@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
-import LemmyBot from "lemmy-bot";
-import Replicate from "replicate";
-import { config } from "dotenv";
+import LemmyBot from 'lemmy-bot';
+import Replicate from 'replicate';
+import { config } from 'dotenv';
 
 config();
 const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY } =
@@ -17,16 +17,16 @@ const removeMention = (text: string) =>
     new RegExp(
       `(\\[\\s*)?@${USERNAME_OR_EMAIL}@${INSTANCE.replace(
         /:\d+/,
-        ""
+        ''
       )}(\\s*\\]\\(.*\\))?`,
-      "g"
+      'g'
     ),
-    ""
+    ''
   );
 
 const generateArt = (prompt: string) =>
   replicate.run(
-    "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
+    'stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf',
     {
       input: {
         prompt,
@@ -41,7 +41,7 @@ const bot = new LemmyBot({
     username: USERNAME_OR_EMAIL,
     password: PASSWORD,
   },
-  dbFile: "db.sqlite3",
+  dbFile: 'db.sqlite3',
   handlers: {
     async mention({
       mentionView: {
@@ -49,16 +49,16 @@ const bot = new LemmyBot({
       },
       botActions: { createComment },
     }) {
-      const prompt = removeMention(content).trim();
+      const prompt = removeMention(content).trim().replace(/\n/g, '');
       try {
         const res = await generateArt(prompt);
 
         if (Array.isArray(res)) {
-          const reply = `Here are images for the prompt: *${prompt}*\n\n${(
+          const reply = `Here are images for the prompt: *${prompt}*\n\n::: spoiler Images\n${(
             res as string[]
           )
-            .map((r) => `![${prompt}](${r})`)
-            .join("\n")}`;
+            .map((r) => `![](${r})`)
+            .join('\n')}\n:::`;
 
           createComment({
             content: reply,
@@ -67,7 +67,7 @@ const bot = new LemmyBot({
           });
         } else {
           createComment({
-            content: "Encountered error while making images",
+            content: 'Encountered error while making images',
             postId: post_id,
             parentId: id,
           });
@@ -76,7 +76,7 @@ const bot = new LemmyBot({
         console.log(e);
 
         createComment({
-          content: "Encountered error while making images",
+          content: 'Encountered error while making images',
           postId: post_id,
           parentId: id,
         });
