@@ -47,7 +47,7 @@ const bot = new LemmyBot({
       mentionView: {
         comment: { id, post_id, content },
       },
-      botActions: { createComment, uploadImage },
+      botActions: { createComment },
     }) {
       const prompt = removeMention(content).trim();
       try {
