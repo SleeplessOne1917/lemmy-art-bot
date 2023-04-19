@@ -105,34 +105,6 @@ const bot = new LemmyBot({
         });
       }
     },
-    async post({
-      postView: {
-        post: { name, id },
-      },
-      botActions: { createComment },
-    }) {
-      const prompt = removeMention(name).trim().replace(/\n/g, '');
-      try {
-        const res = await generateArt(prompt);
-        if (Array.isArray(res)) {
-          createComment({
-            content: generateReply(prompt, res),
-            postId: id,
-          });
-        } else {
-          createComment({
-            content: 'Encountered error while making images',
-            postId: id,
-          });
-        }
-      } catch (e) {
-        console.log(e);
-        createComment({
-          content: 'Encountered error while making images',
-          postId: id,
-        });
-      }
-    },
   },
 });
 
