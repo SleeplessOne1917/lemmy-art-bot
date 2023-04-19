@@ -44,6 +44,9 @@ const generateReply = (prompt: string, res: string[]) =>
     .map((r) => `![](${r})`)
     .join('\n')}\n:::`;
 
+const mentionIsInRightCommunity = (actorId: string) =>
+  new RegExp(`https?:\\/\\/${INSTANCE}\\/c\\/aiart`).test(actorId);
+
 const bot = new LemmyBot({
   instance: INSTANCE,
   credentials: {
@@ -63,31 +66,40 @@ const bot = new LemmyBot({
     async mention({
       mentionView: {
         comment: { id, post_id, content },
+        community: { actor_id },
       },
       botActions: { createComment },
     }) {
-      const prompt = removeMention(content).trim().replace(/\n/g, '');
-      try {
-        const res = await generateArt(prompt);
+      if (mentionIsInRightCommunity(actor_id)) {
+        const prompt = removeMention(content).trim().replace(/\n/g, '');
+        try {
+          const res = await generateArt(prompt);
 
-        if (Array.isArray(res)) {
-          createComment({
-            content: generateReply(prompt, res),
-            postId: post_id,
-            parentId: id,
-          });
-        } else {
+          if (Array.isArray(res)) {
+            createComment({
+              content: generateReply(prompt, res),
+              postId: post_id,
+              parentId: id,
+            });
+          } else {
+            createComment({
+              content: 'Encountered error while making images',
+              postId: post_id,
+              parentId: id,
+            });
+          }
+        } catch (e) {
+          console.log(e);
+
           createComment({
             content: 'Encountered error while making images',
             postId: post_id,
             parentId: id,
           });
         }
-      } catch (e) {
-        console.log(e);
-
+      } else {
         createComment({
-          content: 'Encountered error while making images',
+          content: `My apologies comrade, but I only create art in the [AI art community](https://${INSTANCE}/c/aiart). Make a post or mention me in a comment there and I will make art for you.`,
           postId: post_id,
           parentId: id,
         });
