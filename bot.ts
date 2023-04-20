@@ -99,7 +99,7 @@ const bot = new LemmyBot({
         }
       } else {
         createComment({
-          content: `My apologies comrade, but I only create art in the [AI art community](https://${INSTANCE}/c/aiart). Make a post or mention me in a comment there and I will make art for you.`,
+          content: `My apologies comrade, but I only create art in the [AI art community](https://${INSTANCE}/c/aiart). Mention me in a comment there and give me a prompt and I'll make art for you.`,
           postId: post_id,
           parentId: id,
         });
