@@ -1,4 +1,4 @@
-# lemmy-ocr-bot
+# lemmy-art-bot
 
 A bot for [lemmy](https://github.com/LemmyNet/lemmy), the fediverse link aggregator, that generates images from text prompts.
 
