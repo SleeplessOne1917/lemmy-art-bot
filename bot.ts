@@ -3,6 +3,7 @@
 import LemmyBot, { PostFeatureType, SortType } from 'lemmy-bot';
 import Replicate from 'replicate';
 import { config } from 'dotenv';
+import fetch from 'cross-fetch';
 
 config();
 const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY } =
@@ -75,7 +76,7 @@ const bot = new LemmyBot({
         community: { actor_id },
         post: { id: postId },
       },
-      botActions: { createComment },
+      botActions: { createComment, uploadImage },
     }) {
       if (mentionIsInRightCommunity(actor_id) && postId === currentThread) {
         const prompt = removeMention(content).trim().replace(/\n/g, '');
@@ -83,8 +84,23 @@ const bot = new LemmyBot({
           const res = await generateArt(prompt);
 
           if (Array.isArray(res)) {
+            const images = await Promise.all(
+              res.map((i) =>
+                fetch(i)
+                  .then((r) => r.blob())
+                  .then((blob) => blob.arrayBuffer())
+              )
+            );
+            const links = (
+              await Promise.all(
+                images.map(async (blob) =>
+                  uploadImage(Buffer.from(blob)).then((i) => i.url)
+                )
+              )
+            ).filter((i) => i) as string[];
+
             createComment({
-              content: generateReply(prompt, res),
+              content: generateReply(prompt, links),
               postId: post_id,
               parentId: id,
             });
