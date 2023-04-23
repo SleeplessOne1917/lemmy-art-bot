@@ -4,7 +4,7 @@ specifiers:
   '@types/node': ^18.16.0
   cross-fetch: ^3.1.5
   dotenv: ^16.0.3
-  lemmy-bot: ^0.3.1
+  lemmy-bot: ^0.3.2
   replicate: ^0.11.1
   ts-node: ^10.9.1
   typescript: ^5.0.4
@@ -12,7 +12,7 @@ specifiers:
 dependencies:
   cross-fetch: 3.1.5
   dotenv: 16.0.3
-  lemmy-bot: 0.3.1
+  lemmy-bot: 0.3.2
   replicate: 0.11.1
 
 devDependencies:
@@ -558,8 +558,8 @@ packages:
     dev: false
     optional: true
 
-  /lemmy-bot/0.3.1:
-    resolution: {integrity: sha512-BbKk4IIi3aS7yObeKUvRjDmcCq4zSHMlfuMbJJaT1+YwEZ2xNxMVuC8lhAVFsi+toiO+uC265SQERuvrhwqlSQ==}
+  /lemmy-bot/0.3.2:
+    resolution: {integrity: sha512-/WnhavZ8BGxI8ULydYDb45YzuwgDAE5Aoz1l8Kl1fwar7AC8sa08oFP1ttbl1oHJ/bm5J1ujlOYG0in69rR+VQ==}
     dependencies:
       lemmy-js-client: 0.17.2-rc.6
       node-cron: 3.0.2

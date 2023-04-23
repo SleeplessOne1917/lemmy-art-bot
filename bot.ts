@@ -33,7 +33,7 @@ const generateArt = (prompt: string) =>
         prompt,
         width: 768,
         height: 768,
-        batch_size: 4,
+        batch_size: 3,
       },
     }
   );
@@ -149,7 +149,7 @@ const bot = new LemmyBot({
             currentThread = id;
           }
 
-          if (comments >= 5) {
+          if (comments >= 500) {
             lockPost({ locked: true, postId: id });
             featurePost({
               postId: id,
