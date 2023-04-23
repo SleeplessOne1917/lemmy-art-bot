@@ -42,7 +42,9 @@ const generateReply = (prompt: string, res: string[]) =>
     res as string[]
   )
     .map((r) => `![](${r})`)
-    .join('\n')}\n:::`;
+    .join(
+      '\n'
+    )}\n:::\n\n**If you like one of these images, be sure to save it. Image links disappear after a day or two!**`;
 
 const mentionIsInRightCommunity = (actorId: string) =>
   new RegExp(`https?:\\/\\/${INSTANCE.replace(/:.*/, '')}\\/c\\/aiart`).test(
