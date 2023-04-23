@@ -1,21 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@types/node': ^18.15.11
+  '@types/node': ^18.16.0
   dotenv: ^16.0.3
-  lemmy-bot: ^0.2.7
-  replicate: ^0.11.0
+  lemmy-bot: ^0.3.1
+  replicate: ^0.11.1
   ts-node: ^10.9.1
   typescript: ^5.0.4
 
 dependencies:
   dotenv: 16.0.3
-  lemmy-bot: 0.2.7
-  replicate: 0.11.0
+  lemmy-bot: 0.3.1
+  replicate: 0.11.1
 
 devDependencies:
-  '@types/node': 18.15.11
-  ts-node: 10.9.1_bhanhq442dy43ncydsavgi4jfi
+  '@types/node': 18.16.0
+  ts-node: 10.9.1_gfpyv5b3h2oguybx3lu7z4el7a
   typescript: 5.0.4
 
 packages:
@@ -106,8 +106,8 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@types/node/18.15.11:
-    resolution: {integrity: sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==}
+  /@types/node/18.16.0:
+    resolution: {integrity: sha512-BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ==}
     dev: true
 
   /abbrev/1.1.1:
@@ -556,8 +556,8 @@ packages:
     dev: false
     optional: true
 
-  /lemmy-bot/0.2.7:
-    resolution: {integrity: sha512-bz+lSYslZr+byz1Ydn/knpBBaj/1X7WUiWyjpxWL0y1XvPaGHyilVLrSnVemSezofsga3RHjseAReD8Hn9CDhQ==}
+  /lemmy-bot/0.3.1:
+    resolution: {integrity: sha512-BbKk4IIi3aS7yObeKUvRjDmcCq4zSHMlfuMbJJaT1+YwEZ2xNxMVuC8lhAVFsi+toiO+uC265SQERuvrhwqlSQ==}
     dependencies:
       lemmy-js-client: 0.17.2-rc.6
       node-cron: 3.0.2
@@ -876,8 +876,8 @@ packages:
       util-deprecate: 1.0.2
     dev: false
 
-  /replicate/0.11.0:
-    resolution: {integrity: sha512-pF/+LXZ2CAFYJYaSXHStWttgzcOQkIMaQZg9D28ExGJuhvnhtfrho/qgEte4nsDjRFwN+Ye368g+fPrmh6Tgbw==}
+  /replicate/0.11.1:
+    resolution: {integrity: sha512-PJ5qFQj7y4JfajiRg06ly1NYiH3z2QTuEGbNTBRO5t53dv55eDAc0gOqfVMUYbOvXi9m5jkDpz+W2TwSO8YiOg==}
     dev: false
 
   /retry/0.12.0:
@@ -1014,7 +1014,7 @@ packages:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: false
 
-  /ts-node/10.9.1_bhanhq442dy43ncydsavgi4jfi:
+  /ts-node/10.9.1_gfpyv5b3h2oguybx3lu7z4el7a:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -1033,7 +1033,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.15.11
+      '@types/node': 18.16.0
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3

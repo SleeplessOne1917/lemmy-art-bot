@@ -10,13 +10,13 @@
   "author": "",
   "license": "APGL-3.0",
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "lemmy-bot": "^0.2.7",
-    "replicate": "^0.11.0"
+    "lemmy-bot": "^0.3.1",
+    "replicate": "^0.11.1"
   }
 }
