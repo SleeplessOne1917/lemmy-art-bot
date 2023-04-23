@@ -151,6 +151,7 @@ const bot = new LemmyBot({
                 name: `Art Thread ${
                   parseInt(name.match(threadRegex)![1], 10) + 1
                 }`,
+                body: 'If you like any of the images in the comments, be sure to save them. Image links disappear after a day or two!',
               });
             }
           } else if (!featured_community) {
