@@ -15,7 +15,6 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.3",
     "lemmy-bot": "^0.3.2",
     "replicate": "^0.11.1"
