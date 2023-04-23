@@ -133,7 +133,7 @@ const bot = new LemmyBot({
             currentThread = id;
           }
 
-          if (comments >= 5) {
+          if (comments >= 500) {
             lockPost({ locked: true, postId: id });
             featurePost({
               postId: id,
