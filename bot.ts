@@ -32,7 +32,7 @@ const generateArt = (prompt: string) =>
         prompt,
         width: 768,
         height: 768,
-        batch_size: 4,
+        batch_size: 3,
       },
     }
   );
