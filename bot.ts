@@ -71,52 +71,56 @@ const bot = new LemmyBot({
   },
   dbFile: 'db.sqlite3',
   handlers: {
-    async mention({
-      mentionView: {
-        comment: { id, post_id, content },
-        community: { actor_id },
-        post: { id: postId },
-      },
-      botActions: { createComment },
-    }) {
-      if (mentionIsInRightCommunity(actor_id) && postId === currentThread) {
-        const prompt = removeMention(content).trim().replace(/\n/g, '');
-        try {
-          const res = await generateArt(prompt);
+    mention: {
+      async handle({
+        mentionView: {
+          comment: { id, post_id, content },
+          community: { actor_id },
+          post: { id: postId },
+        },
+        botActions: { createComment },
+      }) {
+        if (mentionIsInRightCommunity(actor_id) && postId === currentThread) {
+          const prompt = removeMention(content).trim().replace(/\n/g, '');
+          try {
+            const res = await generateArt(prompt);
 
-          if (Array.isArray(res)) {
-            createComment({
-              content: generateReply(prompt, res),
-              postId: post_id,
-              parentId: id,
-            });
-          } else {
+            if (Array.isArray(res)) {
+              createComment({
+                content: generateReply(prompt, res),
+                postId: post_id,
+                parentId: id,
+              });
+            } else {
+              createComment({
+                content: 'Encountered error while making images',
+                postId: post_id,
+                parentId: id,
+              });
+            }
+          } catch (e) {
+            console.log(e);
+
             createComment({
               content: 'Encountered error while making images',
               postId: post_id,
               parentId: id,
             });
           }
-        } catch (e) {
-          console.log(e);
-
+        } else {
           createComment({
-            content: 'Encountered error while making images',
+            content: `My apologies comrade, but I only create art in the active art thread in the [AI art community](https://${INSTANCE}/c/aiart).\n\n[Here is the current art thread.](https://${INSTANCE}/post/${currentThread}) Mention me in a comment there and give me a prompt and I'll make art for you.`,
             postId: post_id,
             parentId: id,
           });
         }
-      } else {
-        createComment({
-          content: `My apologies comrade, but I only create art in the active art thread in the [AI art community](https://${INSTANCE}/c/aiart).\n\n[Here is the current art thread.](https://${INSTANCE}/post/${currentThread}) Mention me in a comment there and give me a prompt and I'll make art for you.`,
-          postId: post_id,
-          parentId: id,
-        });
-      }
+      },
+      secondsBetweenPolls: 30,
     },
     post: {
       sort: SortType.Active,
       minutesUntilReprocess: 1,
+      secondsBetweenPolls: 120,
       async handle({
         postView: {
           creator: { actor_id },
