@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "lemmy-bot": "^0.3.5",
+    "lemmy-bot": "^0.3.6",
     "replicate": "^0.11.1"
   }
 }
