@@ -8,8 +8,8 @@ dependencies:
     specifier: ^0.3.6
     version: 0.3.6
   replicate:
-    specifier: ^0.12.0
-    version: 0.12.0
+    specifier: ^0.12.1
+    version: 0.12.1
 
 devDependencies:
   '@types/node':
@@ -880,8 +880,8 @@ packages:
       util-deprecate: 1.0.2
     dev: false
 
-  /replicate@0.12.0:
-    resolution: {integrity: sha512-QUCimgVNY7afuaOwUXivFI9Rs/S8qpKYVDGOWpxyxn5x1JYOFDKIMX4rEyIBPqJzdJRenXdeZj7bo6dKz5wn0A==}
+  /replicate@0.12.1:
+    resolution: {integrity: sha512-Y95yeJte+kkPVkLrdEkHJUj3qwqhGHUf32YOn6Vc+7pVYAVAvY6Pd1MQgHatHjqNo+lStQzypta7zPiF2D0b4g==}
     dev: false
 
   /retry@0.12.0:
