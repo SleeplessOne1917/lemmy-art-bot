@@ -1,6 +1,7 @@
 import LemmyBot, { PostFeatureType, SortType } from 'lemmy-bot';
 import Replicate from 'replicate';
 import { config } from 'dotenv';
+import fetch from 'cross-fetch';
 
 config();
 const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY, RESET_USER } =
