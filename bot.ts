@@ -8,6 +8,7 @@ const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY, RESET_USER } =
 
 const replicate = new Replicate({
   auth: API_KEY,
+  fetch,
 });
 
 const removeMention = (text: string) =>
