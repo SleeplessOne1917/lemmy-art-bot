@@ -1,4 +1,4 @@
-import LemmyBot, { PostFeatureType, SortType } from 'lemmy-bot';
+import LemmyBot from 'lemmy-bot';
 import Replicate from 'replicate';
 import { config } from 'dotenv';
 import fetch from 'cross-fetch';
@@ -131,7 +131,7 @@ const bot = new LemmyBot({
       }
     },
     post: {
-      sort: SortType.Active,
+      sort: 'Active',
       minutesUntilReprocess: 1,
       async handle({
         postView: {
@@ -156,7 +156,7 @@ const bot = new LemmyBot({
             featurePost({
               postId: id,
               featured: false,
-              featureType: PostFeatureType.Community,
+              featureType: 'Community',
             });
 
             const communityId = await getCommunityId('aiart');
@@ -174,7 +174,7 @@ const bot = new LemmyBot({
             featurePost({
               postId: id,
               featured: true,
-              featureType: PostFeatureType.Community,
+              featureType: 'Community',
             });
           }
         }
