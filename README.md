@@ -12,6 +12,7 @@ Create a file called `.env` in the same directory as `bot.ts`. There are 4 envir
 - `USERNAME_OR_EMAIL`: The username or email of the bot
 - `PASSWORD`: The password for the bot's account.
 - `API_KEY`: The API key used for the Stable Diffusion API. [Create an API key here if you do not already have one.](https://replicate.com/)
+- `RESET_USER`: Username of user who is allowed to reset art bot.
 
 When the bot is setup, it can be started by running `npm start`.
 

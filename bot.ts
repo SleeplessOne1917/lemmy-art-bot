@@ -3,7 +3,7 @@ import Replicate from 'replicate';
 import { config } from 'dotenv';
 
 config();
-const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY } =
+const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY, RESET_USER } =
   process.env as Record<string, string>;
 
 const replicate = new Replicate({
@@ -109,6 +109,22 @@ const bot = new LemmyBot({
           content: `My apologies comrade, but I only create art in the active art thread in the [AI art community](https://${INSTANCE}/c/aiart).\n\n[Here is the current art thread.](https://${INSTANCE}/post/${currentThread}) Mention me in a comment there and give me a prompt and I'll make art for you.`,
           postId: post_id,
           parentId: id,
+        });
+      }
+    },
+    privateMessage: ({
+      botActions: { sendPrivateMessage },
+      messageView: {
+        creator: { id: creatorId, name },
+        private_message: { content },
+      },
+    }) => {
+      const messageNumber = parseInt(content, 10);
+      if (name === RESET_USER && !isNaN(messageNumber)) {
+        currentThread = messageNumber;
+        sendPrivateMessage({
+          recipientId: creatorId,
+          content: `Resetting the current thread to ${currentThread}`,
         });
       }
     },
