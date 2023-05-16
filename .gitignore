@@ -104,3 +104,4 @@ dist
 .tern-port
 
 db.sqlite3
+current_post.txt

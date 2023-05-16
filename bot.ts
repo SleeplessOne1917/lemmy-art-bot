@@ -2,10 +2,16 @@ import LemmyBot from 'lemmy-bot';
 import Replicate from 'replicate';
 import { config } from 'dotenv';
 import fetch from 'cross-fetch';
+import { readFile, writeFile } from 'fs/promises';
+import path from 'path';
 
 config();
-const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY, RESET_USER } =
+const { INSTANCE, USERNAME_OR_EMAIL, PASSWORD, API_KEY } =
   process.env as Record<string, string>;
+
+const threadRegex = /[A-Za-z\s]*(\d+)/;
+
+let currentThread: number;
 
 const replicate = new Replicate({
   auth: API_KEY,
@@ -51,9 +57,14 @@ const mentionIsInRightCommunity = (actorId: string) =>
     actorId
   );
 
-const threadRegex = /[A-Za-z\s]*(\d+)/;
+async function start() {
+  currentThread = parseInt(
+    (await readFile(path.resolve('./current_post.txt'))).toString(),
+    10
+  );
 
-let currentThread: number | undefined = undefined;
+  bot.start();
+}
 
 const bot = new LemmyBot({
   instance: INSTANCE,
@@ -114,22 +125,6 @@ const bot = new LemmyBot({
         });
       }
     },
-    privateMessage: ({
-      botActions: { sendPrivateMessage },
-      messageView: {
-        creator: { id: creatorId, name },
-        private_message: { content },
-      },
-    }) => {
-      const messageNumber = parseInt(content, 10);
-      if (name === RESET_USER && !isNaN(messageNumber)) {
-        currentThread = messageNumber;
-        sendPrivateMessage({
-          recipientId: creatorId,
-          content: `Resetting the current thread to ${currentThread}`,
-        });
-      }
-    },
     post: {
       sort: 'Active',
       minutesUntilReprocess: 1,
@@ -149,6 +144,13 @@ const bot = new LemmyBot({
         ) {
           if (!currentThread) {
             currentThread = id;
+            writeFile(
+              path.resolve('./current_post.txt'),
+              currentThread.toString(),
+              {
+                flag: 'w',
+              }
+            );
           }
 
           if (comments >= 500) {
@@ -183,4 +185,4 @@ const bot = new LemmyBot({
   },
 });
 
-bot.start();
+start();
