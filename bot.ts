@@ -98,14 +98,14 @@ const bot = new LemmyBot({
           if (Array.isArray(res)) {
             createComment({
               content: generateReply(prompt, res),
-              postId: post_id,
-              parentId: id,
+              post_id,
+              parent_id: id,
             });
           } else {
             createComment({
               content: 'Encountered error while making images',
-              postId: post_id,
-              parentId: id,
+              post_id,
+              parent_id: id,
             });
           }
         } catch (e) {
@@ -113,15 +113,15 @@ const bot = new LemmyBot({
 
           createComment({
             content: 'Encountered error while making images',
-            postId: post_id,
-            parentId: id,
+            post_id,
+            parent_id: id,
           });
         }
       } else {
         createComment({
           content: `My apologies comrade, but I only create art in the active art thread in the [AI art community](https://${INSTANCE}/c/aiart).\n\n[Here is the current art thread.](https://${INSTANCE}/post/${currentThread}) Mention me in a comment there and give me a prompt and I'll make art for you.`,
-          postId: post_id,
-          parentId: id,
+          post_id,
+          parent_id: id,
         });
       }
     },
@@ -154,18 +154,18 @@ const bot = new LemmyBot({
           }
 
           if (comments >= 500) {
-            lockPost({ locked: true, postId: id });
+            lockPost({ locked: true, post_id: id });
             featurePost({
-              postId: id,
+              post_id: id,
               featured: false,
-              featureType: 'Community',
+              feature_type: 'Community',
             });
 
             const communityId = await getCommunityId('aiart');
 
             if (communityId) {
               createPost({
-                communityId,
+                community_id: communityId,
                 name: `Art Thread ${
                   parseInt(name.match(threadRegex)![1], 10) + 1
                 }`,
@@ -174,9 +174,9 @@ const bot = new LemmyBot({
             }
           } else if (!featured_community) {
             featurePost({
-              postId: id,
+              post_id: id,
               featured: true,
-              featureType: 'Community',
+              feature_type: 'Community',
             });
           }
         }
