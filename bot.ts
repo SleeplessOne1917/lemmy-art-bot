@@ -96,13 +96,13 @@ const bot = new LemmyBot({
           const res = await generateArt(prompt);
 
           if (Array.isArray(res)) {
-            createComment({
+            await createComment({
               content: generateReply(prompt, res),
               post_id,
               parent_id: id,
             });
           } else {
-            createComment({
+            await createComment({
               content: 'Encountered error while making images',
               post_id,
               parent_id: id,
@@ -111,14 +111,14 @@ const bot = new LemmyBot({
         } catch (e) {
           console.log(e);
 
-          createComment({
+          await createComment({
             content: 'Encountered error while making images',
             post_id,
             parent_id: id,
           });
         }
       } else {
-        createComment({
+        await createComment({
           content: `My apologies comrade, but I only create art in the active art thread in the [AI art community](https://${INSTANCE}/c/aiart).\n\n[Here is the current art thread.](https://${INSTANCE}/post/${currentThread}) Mention me in a comment there and give me a prompt and I'll make art for you.`,
           post_id,
           parent_id: id,
@@ -144,7 +144,7 @@ const bot = new LemmyBot({
         ) {
           if (!currentThread) {
             currentThread = id;
-            writeFile(
+            await writeFile(
               path.resolve('./current_post.txt'),
               currentThread.toString(),
               {
@@ -153,27 +153,30 @@ const bot = new LemmyBot({
             );
           }
 
-          if (comments >= 500) {
-            lockPost({ locked: true, post_id: id });
-            featurePost({
-              post_id: id,
-              featured: false,
-              feature_type: 'Community',
-            });
+          if (comments >= 300) {
+            await Promise.all([
+              lockPost({ locked: true, post_id: id }),
+              featurePost({
+                post_id: id,
+                featured: false,
+                feature_type: 'Community',
+              }),
+              (async () => {
+                const community_id = await getCommunityId('aiart');
 
-            const communityId = await getCommunityId('aiart');
-
-            if (communityId) {
-              createPost({
-                community_id: communityId,
-                name: `Art Thread ${
-                  parseInt(name.match(threadRegex)![1], 10) + 1
-                }`,
-                body: 'If you like any of the images in the comments, be sure to save them. Image links disappear after a day or two!',
-              });
-            }
+                if (community_id) {
+                  await createPost({
+                    community_id,
+                    name: `Art Thread ${
+                      parseInt(name.match(threadRegex)![1], 10) + 1
+                    }`,
+                    body: 'If you like any of the images in the comments, be sure to save them. Image links disappear after a day or two!',
+                  });
+                }
+              })(),
+            ]);
           } else if (!featured_community) {
-            featurePost({
+            await featurePost({
               post_id: id,
               featured: true,
               feature_type: 'Community',

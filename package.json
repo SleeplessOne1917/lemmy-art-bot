@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "bot.ts",
+  "packageManager": "^pnpm@8.6.5",
   "scripts": {
     "start": "ts-node bot.ts"
   },
@@ -17,7 +18,7 @@
   "dependencies": {
     "cross-fetch": "^4.0.0",
     "dotenv": "^16.3.1",
-    "lemmy-bot": "^0.4.1",
+    "lemmy-bot": "^0.4.2",
     "replicate": "^0.12.3"
   }
 }

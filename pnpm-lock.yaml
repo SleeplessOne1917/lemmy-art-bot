@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   cross-fetch:
     specifier: ^4.0.0
@@ -8,8 +12,8 @@ dependencies:
     specifier: ^16.3.1
     version: 16.3.1
   lemmy-bot:
-    specifier: ^0.4.1
-    version: 0.4.1
+    specifier: ^0.4.2
+    version: 0.4.2
   replicate:
     specifier: ^0.12.3
     version: 0.12.3
@@ -510,10 +514,10 @@ packages:
     dev: false
     optional: true
 
-  /lemmy-bot@0.4.1:
-    resolution: {integrity: sha512-SX71G2Z/fsjLv97lfZQXYd0sXy7E6M4DNk9hAQciRMzEU4Au47rayhR7RUVF3GuZTiZCh7z8kDtfZCEqb9U6Tw==}
+  /lemmy-bot@0.4.2:
+    resolution: {integrity: sha512-Ut+EBMudYXspalL8fVITDOgqPb70Vd0Wl/lIRRTNxTaC6J5HzkXPapNruxCemTqZnf+nwgm9EhZVZiUhMc5Teg==}
     dependencies:
-      lemmy-js-client: 0.18.1-rc.2
+      lemmy-js-client: 0.18.1-rc.3
       node-cron: 3.0.2
       sqlite3: 5.1.6
     transitivePeerDependencies:
@@ -522,8 +526,8 @@ packages:
       - supports-color
     dev: false
 
-  /lemmy-js-client@0.18.1-rc.2:
-    resolution: {integrity: sha512-V2QO8TMIeCW7Hgg2wdum4yHtfB3H2qwKHS4CwcsrnrjRyfTVL1cD4fwpm2Cd2IKz14dWjRWgs1Q2riMLehiMWA==}
+  /lemmy-js-client@0.18.1-rc.3:
+    resolution: {integrity: sha512-PiYX5/nDmIB8HRkgllFYRd1DgYv+R/DakyLvqjZgXTm5cAo/bPpDKZ3U481y4PsXlWI0AEm04gwi61t08fyCFA==}
     dependencies:
       cross-fetch: 3.1.8
       form-data: 4.0.0
