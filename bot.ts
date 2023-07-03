@@ -126,7 +126,7 @@ const bot = new LemmyBot({
       }
     },
     post: {
-      sort: 'Active',
+      sort: 'NewComments',
       minutesUntilReprocess: 1,
       async handle({
         postView: {
